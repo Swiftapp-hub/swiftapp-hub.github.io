@@ -64,40 +64,40 @@ export default {
         .timeline()
         .from(
           content_page.value,
-          { duration: 0.4, opacity: 0, ease: "power2.out" },
-          0.4
+          { duration: 0.2, opacity: 0, ease: "power2.out" },
+          0.2
         )
         .from(
           h1.value,
-          { duration: 1, y: -20, opacity: 0, ease: "power2.out" },
-          0.4
+          { duration: 0.8, y: -20, opacity: 0, ease: "power2.out" },
+          0.2
         )
         .from(
           h2.value,
-          { duration: 1, y: 20, opacity: 0, ease: "power2.out" },
-          0.8
+          { duration: 0.8, y: 20, opacity: 0, ease: "power2.out" },
+          0.6
         )
         .from(
           h01.value,
-          { duration: 1, y: -20, opacity: 0, ease: "power2.out" },
-          1.2
+          { duration: 0.8, y: -20, opacity: 0, ease: "power2.out" },
+          1
         )
         .from(
           h02.value,
-          { duration: 1, y: -20, opacity: 0, ease: "power2.out" },
-          1.6
+          { duration: 0.8, y: -20, opacity: 0, ease: "power2.out" },
+          1.4
         )
         .from(
           h03.value,
-          { duration: 1, y: 20, opacity: 0, ease: "power2.out" },
-          2
+          { duration: 0.8, y: 20, opacity: 0, ease: "power2.out" },
+          1.8
         )
         .from(
           btn_download.value,
-          { duration: 1, y: 20, opacity: 0, ease: "power2.out" },
-          2.4
+          { duration: 0.8, y: 20, opacity: 0, ease: "power2.out" },
+          2.2
         )
-        .from(line.value, { duration: 1, scale: 0, opacity: 0, ease: "power2.out" }, 1);
+        .from(line.value, { duration: 0.8, scale: 0, opacity: 0, ease: "power2.out" }, 0.8);
     });
 
     return {

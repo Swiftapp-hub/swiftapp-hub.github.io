@@ -43,15 +43,38 @@
     </div>
 
     <div class="margin"></div>
+
+    <Teleport to="body">
+      <DialogVue :show="showDialog" @close="showDialog = false">
+        <template #header>
+          <h2>Swifty Assistant is downloading</h2>
+        </template>
+        <template #body>
+          <h3>
+            Once Swifty Assistant is downloaded, make it executable then double
+            click on it to start the installation
+          </h3>
+        </template>
+      </DialogVue>
+    </Teleport>
   </div>
 </template>
 
 <script>
 import gsap from "gsap";
 import { onMounted, ref } from "@vue/runtime-core";
+import DialogVue from "./DialogVue.vue";
 
 export default {
   name: "SwiftyAssistant",
+  components: {
+    DialogVue,
+  },
+  data() {
+    return {
+      showDialog: false,
+    };
+  },
   setup() {
     const icon_swifty = ref("icon_swifty");
     const h1 = ref("h1");
@@ -69,40 +92,44 @@ export default {
         .timeline()
         .from(
           content_page.value,
-          { duration: 0.4, opacity: 0, ease: "power2.out" },
-          0.4
+          { duration: 0.2, opacity: 0, ease: "power2.out" },
+          0.2
         )
         .from(
           icon_swifty.value,
-          { duration: 1, y: -20, opacity: 0, ease: "power2.out" },
-          0.4
+          { duration: 0.8, y: -20, opacity: 0, ease: "power2.out" },
+          0.2
         )
         .from(
           h1.value,
-          { duration: 1, y: -20, opacity: 0, ease: "power2.out" },
-          0.8
-        )
-        .from(
-          h2.value,
-          { duration: 1, y: -20, opacity: 0, ease: "power2.out" },
-          1.2
-        )
-        .from(
-          h3.value,
-          { duration: 1, y: -20, opacity: 0, ease: "power2.out" },
-          1.6
-        )
-        .from(
-          btn_download.value,
-          { duration: 2, x: -300, opacity: 0, ease: "power2.out" },
+          { duration: 0.8, y: -20, opacity: 0, ease: "power2.out" },
           0.6
         )
         .from(
-          btn_github_project.value,
-          { duration: 2, x: 300, opacity: 0, ease: "power2.out" },
+          h2.value,
+          { duration: 0.8, y: -20, opacity: 0, ease: "power2.out" },
           1
         )
-        .from(line.value, { duration: 1, scale: 0, opacity: 0, ease: "power2.out" }, 2);
+        .from(
+          h3.value,
+          { duration: 0.8, y: -20, opacity: 0, ease: "power2.out" },
+          1.4
+        )
+        .from(
+          btn_download.value,
+          { duration: 1.8, x: -300, opacity: 0, ease: "power2.out" },
+          0.4
+        )
+        .from(
+          btn_github_project.value,
+          { duration: 1.8, x: 300, opacity: 0, ease: "power2.out" },
+          0.8
+        )
+        .from(
+          line.value,
+          { duration: 0.8, scale: 0, opacity: 0, ease: "power2.out" },
+          1.8
+        );
     });
 
     return {
@@ -120,6 +147,7 @@ export default {
   methods: {
     download(link) {
       location.href = link;
+      this.showDialog = true;
     },
     open(link) {
       window.open(link);
@@ -190,7 +218,7 @@ export default {
   font-family: "Baloo 2", cursive;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s;
+  transition: all 0.4s;
   transition-property: box-shadow;
   overflow: hidden;
   border-radius: 60px;
@@ -385,6 +413,33 @@ export default {
 
   .content_page .btn_github_project img {
     height: 32px;
+  }
+}
+
+@media all and (max-height: 650px) and (orientation: landscape) {
+  .content_page {
+    position: unset;
+    bottom: unset;
+  }
+
+  .containeur {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 15%;
+    left: 8%;
+    right: 8%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .containeur .margin {
+    height: 30px;
+  }
+
+  .content_page .line {
+    height: 300px;
   }
 }
 

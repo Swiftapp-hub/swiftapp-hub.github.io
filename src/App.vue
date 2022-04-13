@@ -2,14 +2,34 @@
   <nav id="nav_bar" ref="nav_bar">
     <a id="logo" ref="logo" href="https://swiftapp-hub.github.io" title="Home">Swiftapp</a>
 
+    <div class="tabs">
+      <div class="tab_item" ref="btn_home" @click="changePage('HomePage')">
+        <input type="radio" id="tab1" name="tab-control" checked />
+        <div>Home</div>
+      </div>
+      <div class="tab_item" ref="btn_swifty" @click="changePage('SwiftyAssistant')">
+        <input type="radio" id="tab1" name="tab-control" checked />
+        <div>Swifty</div>
+      </div>
+      <div class="tab_item" ref="btn_contact" @click="changePage('ContactPage')">
+        <input type="radio" id="tab1" name="tab-control" checked />
+        <div>Contact</div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
     <div class="onglets">
-      <button id="btn_github" ref="btn_github" @click="open('https://github.com/Swiftapp-hub')">GitHub</button>
-      <button id="btn_contact" ref="btn_contact" @click="changePage('ContactPage')">Contact</button>
+      <button
+        id="btn_github"
+        ref="btn_github"
+        @click="open('https://github.com/Swiftapp-hub')"
+      >GitHub</button>
     </div>
   </nav>
 
-  <transition name="component-fade">
-    <component v-bind:is="currentPage" />
+  <transition name="component-fade" mode="out-in">
+    <component v-bind:is="currentPage"></component>
   </transition>
 </template>
 
@@ -18,41 +38,47 @@ import SwiftyAssistant from "./components/SwiftyAssistant.vue";
 import HomePage from "./components/HomePage.vue";
 import ContactPage from "./components/ContactPage.vue";
 import gsap from "gsap";
-import { onMounted, ref } from '@vue/runtime-core';
+import { onMounted, ref } from "@vue/runtime-core";
 
 export default {
   name: "App",
   components: {
     SwiftyAssistant,
     HomePage,
-    ContactPage
+    ContactPage,
   },
   data() {
     return {
-      currentPage: "SwiftyAssistant"
+      currentPage: "SwiftyAssistant",
     };
   },
   setup() {
     const logo = ref("logo");
     const btn_github = ref("btn_github");
-    const btn_contact = ref("btn_contact");
     const nav_bar = ref("nav_bar");
 
     let anim = null;
 
-    onMounted (() => {
-      anim = gsap.timeline()
-      .from(logo.value, {duration: 2, x: -150, opacity: 0, ease: "power2.out"}, 0.1)
-      .from(btn_github.value, {duration: 1.5, y: -200, opacity: 0, ease: "power2.out"}, 0.1)
-      .from(btn_contact.value, {duration: 1.5, y: -200, opacity: 0, ease: "power2.out"}, 0.5);
+    onMounted(() => {
+      anim = gsap
+        .timeline()
+        .from(
+          logo.value,
+          { duration: 2, x: -150, opacity: 0, ease: "power2.out" },
+          0.1
+        )
+        .from(
+          btn_github.value,
+          { duration: 1.5, y: -200, opacity: 0, ease: "power2.out" },
+          0.1
+        );
     });
 
     return {
       logo,
       btn_github,
-      btn_contact,
       anim,
-      nav_bar
+      nav_bar,
     };
   },
   methods: {
@@ -70,24 +96,31 @@ export default {
     },
     open(link) {
       window.open(link);
-    }
+    },
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
-  }
+  },
 };
 </script>
 
 <style>
-.component-fade-enter-active, .component-fade-leave-active {
-  transition: opacity .4s ease;
+.component-fade-enter-active,
+.component-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+.component-fade-enter,
+.component-fade-leave-to {
+  opacity: 0;
 }
 
-.component-fade-enter, .component-fade-leave-to{
-  opacity: 0;
+nav .tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 nav {
@@ -96,7 +129,6 @@ nav {
   flex-wrap: wrap;
   left: 0;
   right: 0;
-  justify-content: space-between;
   padding: 12px;
   align-items: center;
   transition: all 0.25s;
@@ -111,6 +143,10 @@ nav a {
   font-size: 1.8em;
   margin-left: 20px;
   height: 100%;
+}
+
+nav .spacer {
+  flex: 1;
 }
 
 nav .onglets button {
