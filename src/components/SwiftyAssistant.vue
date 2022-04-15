@@ -37,7 +37,7 @@
           class="btn_github_project"
           @click="open('https://github.com/Swiftapp-hub/Swifty-Assistant')"
         >
-          <img src="../assets/github-brands.svg" />
+          <img src="../assets/github-brands.png" />
         </button>
       </div>
     </div>
@@ -117,12 +117,12 @@ export default {
         )
         .from(
           btn_download.value,
-          { duration: 1.8, x: -300, opacity: 0, ease: "power2.out" },
+          { duration: 1.8, x: -60, opacity: 0, ease: "power2.out" },
           0.4
         )
         .from(
           btn_github_project.value,
-          { duration: 1.8, x: 300, opacity: 0, ease: "power2.out" },
+          { duration: 1.8, x: 60, opacity: 0, ease: "power2.out" },
           0.8
         )
         .from(
@@ -211,7 +211,7 @@ export default {
 .content_page .btn_download {
   background: transparent;
   border: 0px;
-  color: black;
+  color: white;
   padding: 20px 50px;
   margin-bottom: 40px;
   font-size: 30px;
@@ -267,7 +267,7 @@ export default {
 }
 
 .content_page .btn_github_project img {
-  height: 44px;
+  height: 50px;
 }
 
 .content_page .btn_github_project::after {
@@ -427,7 +427,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    top: 15%;
+    top: 18%;
     left: 8%;
     right: 8%;
     text-align: center;

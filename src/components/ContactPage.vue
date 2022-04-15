@@ -295,6 +295,33 @@ export default {
   }
 }
 
+@media all and (max-height: 650px) and (orientation: landscape) {
+  .content_page {
+    position: unset;
+    bottom: unset;
+  }
+
+  .containeur {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 18%;
+    left: 8%;
+    right: 8%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .containeur .margin {
+    height: 30px;
+  }
+
+  .content_page .line {
+    height: 300px;
+  }
+}
+
 @media all and (max-height: 850px) and (orientation: portrait) {
   .content_page {
     position: unset;
