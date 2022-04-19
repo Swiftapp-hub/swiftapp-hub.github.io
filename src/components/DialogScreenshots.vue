@@ -1,20 +1,18 @@
 <template>
   <Transition name="modal">
-    <div v-if="show" class="dialog-mask">
-      <div class="dialog-wrapper">
-        <div class="dialog-container">
-          <div class="dialog-header">
+    <div v-if="show" class="dialog-screenshot-mask">
+      <div class="dialog-screenshot-wrapper">
+        <div class="dialog-screenshot-container">
+          <div class="dialog-screenshot-header">
             <slot name="header">default header</slot>
           </div>
 
-          <div class="dialog-body">
+          <div class="dialog-screenshot-body">
             <slot name="body">default body</slot>
           </div>
 
-          <div class="dialog-footer">
-            <button class="dialog-default-button" @click="$emit('close')">
-              Close
-            </button>
+          <div class="dialog-screenshot-footer">
+            <button class="dialog-default-button" @click="$emit('close')">Close</button>
           </div>
         </div>
       </div>
@@ -24,7 +22,7 @@
 
 <script>
 export default {
-  name: "DialogVue",
+  name: "DialogScreenshots",
   props: {
     show: Boolean,
   },
@@ -32,7 +30,7 @@ export default {
 </script>
 
 <style>
-.dialog-mask {
+.dialog-screenshot-mask {
   position: fixed;
   z-index: 9999;
   top: 0;
@@ -46,14 +44,14 @@ export default {
   -webkit-backdrop-filter: blur(8px);
 }
 
-.dialog-wrapper {
+.dialog-screenshot-wrapper {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
 }
 
-.dialog-container {
-  width: 300px;
+.dialog-screenshot-container {
+  width: 1200px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: rgb(36, 36, 36);
@@ -63,32 +61,68 @@ export default {
   text-align: center;
 }
 
-@media all and (max-width: 700px) {
-  .dialog-container {
-    width: 200px;
-  }
-}
-
-.dialog-header h2 {
+.dialog-screenshot-header h2 {
   margin-top: 0;
   color: #42b983;
   font-family: "Raleway", sans-serif;
 }
 
-.dialog-body h3 {
-  color: white;
-  font-family: "Raleway", sans-serif;
-}
-
-.dialog-body div {
+.dialog-screenshot-body div {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
 }
 
-.dialog-body a {
-  color: white;
-  font-family: "Raleway", sans-serif;
+.dialog-screenshot-body img {
+  width: 40%;
+  height: 50%;
   margin-bottom: 10px;
+}
+
+@media all and (max-width: 900px) {
+  .dialog-screenshot-body div {
+    justify-content: left;
+    align-items: left;
+    overflow-x: auto;
+  }
+}
+
+@media all and (max-width: 1300px) {
+  .dialog-screenshot-container {
+    width: 800px;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .dialog-screenshot-container {
+    width: 600px;
+  }
+}
+
+@media all and (max-width: 700px) {
+  .dialog-screenshot-container {
+    width: 300px;
+  }
+}
+
+@media all and (max-height: 900px) {
+  .dialog-screenshot-body img {
+    width: 400px;
+  }
+}
+
+@media all and (max-height: 700px) {
+  .dialog-screenshot-body img {
+    width: 300px;
+  }
+}
+
+@media all and (max-height: 600px) {
+  .dialog-screenshot-body img {
+    width: 200px;
+  }
 }
 
 .dialog-body {

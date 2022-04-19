@@ -14,6 +14,13 @@
           Swifty Assistant and you find it useful, please feel free to
           contribute to the project, thank you.
         </h2>
+        <button
+          ref="btn_screenshot"
+          class="btn_screenshot"
+          @click="
+            showDialogScreenshot()
+          "
+        >Screenshot</button>
       </div>
 
       <div class="line" ref="line"></div>
@@ -28,9 +35,15 @@
               'https://github.com/Swiftapp-hub/Swifty-Assistant/releases/download/v1.0.0-alpha3/SwiftyAssistant-OnLine-Installer.run'
             )
           "
-        >
-          Download v1.0.0-alpha3 Linux
-        </button>
+        >Download v1.0.0-alpha3 Linux</button>
+        <button
+          id="btn_plugins"
+          ref="btn_plugins"
+          class="btn_plugins"
+          @click="
+            showDialogPlugins()
+          "
+        >Download plugins</button>
         <button
           id="btn_github_project"
           ref="btn_github_project"
@@ -57,6 +70,48 @@
         </template>
       </DialogVue>
     </Teleport>
+
+    <Teleport to="body">
+      <DialogVue :show="showPlugins" @close="showPlugins = false">
+        <template #header>
+          <h2>Swifty Assistant plugins</h2>
+        </template>
+        <template #body>
+          <div>
+            <a
+              href="https://github.com/Swiftapp-hub/HelloWorld-Plugin-Swifty-Assistant"
+              target="_blank"
+            >Hello World</a>
+            <a
+              href="https://github.com/Swiftapp-hub/ControlSettings-Plugin-Swifty-Assistant"
+              target="_blank"
+            >Control Settings</a>
+            <a
+              href="https://github.com/Swiftapp-hub/WebSearch-Plugin-Swifty-Assistant"
+              target="_blank"
+            >Web Search</a>
+          </div>
+        </template>
+      </DialogVue>
+    </Teleport>
+
+    <Teleport to="body">
+      <DialogScreenshots :show="showScreenshot" @close="showScreenshot = false">
+        <template #header>
+          <h2>Screenshot</h2>
+        </template>
+        <template #body>
+          <div>
+            <img
+              src="https://raw.githubusercontent.com/Swiftapp-hub/Swifty-Assistant/master/screenshot/swifty.png"
+            />
+            <img
+              src="https://raw.githubusercontent.com/Swiftapp-hub/Swifty-Assistant/master/screenshot/swifty1.png"
+            />
+          </div>
+        </template>
+      </DialogScreenshots>
+    </Teleport>
   </div>
 </template>
 
@@ -64,15 +119,19 @@
 import gsap from "gsap";
 import { onMounted, ref } from "@vue/runtime-core";
 import DialogVue from "./DialogVue.vue";
+import DialogScreenshots from "./DialogScreenshots.vue";
 
 export default {
   name: "SwiftyAssistant",
   components: {
     DialogVue,
+    DialogScreenshots
   },
   data() {
     return {
       showDialog: false,
+      showPlugins: false,
+      showScreenshot: false,
     };
   },
   setup() {
@@ -80,7 +139,9 @@ export default {
     const h1 = ref("h1");
     const h2 = ref("h2");
     const h3 = ref("h3");
+    const btn_screenshot = ref("btn_screenshot");
     const btn_download = ref("btn_download");
+    const btn_plugins = ref("btn_plugins");
     const btn_github_project = ref("btn_github_project");
     const line = ref("line");
     const content_page = ref("content_page");
@@ -116,14 +177,24 @@ export default {
           1.4
         )
         .from(
+          btn_screenshot.value,
+          { duration: 0.8, y: 20, opacity: 0, ease: "power2.out" },
+          1.8
+        )
+        .from(
           btn_download.value,
           { duration: 1.8, x: -60, opacity: 0, ease: "power2.out" },
           0.4
         )
         .from(
-          btn_github_project.value,
+          btn_plugins.value,
           { duration: 1.8, x: 60, opacity: 0, ease: "power2.out" },
           0.8
+        )
+        .from(
+          btn_github_project.value,
+          { duration: 1.8, x: -60, opacity: 0, ease: "power2.out" },
+          1.2
         )
         .from(
           line.value,
@@ -137,7 +208,9 @@ export default {
       h1,
       h2,
       h3,
+      btn_screenshot,
       btn_download,
+      btn_plugins,
       btn_github_project,
       line,
       content_page,
@@ -145,6 +218,12 @@ export default {
     };
   },
   methods: {
+    showDialogScreenshot() {
+      this.showScreenshot = true;
+    },
+    showDialogPlugins() {
+      this.showPlugins = true;
+    },
     download(link) {
       location.href = link;
       this.showDialog = true;
@@ -201,6 +280,33 @@ export default {
   width: 47%;
 }
 
+.btn_screenshot {
+  align-items: center;
+  border: 4;
+  border-radius: 30px;
+  border-color: #bf99a5;
+  border-style: solid;
+  background: transparent;
+  color: white;
+  position: relative;
+  padding: 4px 25px;
+  cursor: pointer;
+  font-family: "Baloo 2", cursive;
+  font-size: 1em;
+  transition: all 0.4s;
+  transition-property: background;
+}
+
+.btn_screenshot:hover {
+  background: #bf99a5;
+}
+
+.btn_screenshot:active {
+  background: #997983;
+  border-color: #997983;
+  transition: all 0.15s;
+}
+
 .content_page .line {
   border-left: 2px solid rgb(139, 139, 139);
   height: 80%;
@@ -250,6 +356,52 @@ export default {
 }
 
 .content_page .btn_download:active {
+  box-shadow: 5px -5px 20px 0px #2a2a846e, -5px 5px 20px 0px #aa89a081;
+  transition: all 0.1s;
+}
+
+.content_page .btn_plugins {
+  background: transparent;
+  border: 0px;
+  color: white;
+  padding: 20px 50px;
+  margin-bottom: 40px;
+  font-size: 30px;
+  font-family: "Baloo 2", cursive;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.4s;
+  transition-property: box-shadow;
+  overflow: hidden;
+  border-radius: 60px;
+}
+
+.content_page .btn_plugins::after {
+  content: "";
+  width: 700px;
+  height: 700px;
+  position: absolute;
+  top: -90px;
+  left: -100px;
+  background-image: linear-gradient(
+    225deg,
+    #ffc9b3 0%,
+    #aa89a0 50%,
+    #2a2a84 100%
+  );
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+.content_page .btn_plugins:hover::after {
+  transform: rotate(150deg);
+}
+
+.content_page .btn_plugins:hover {
+  box-shadow: 10px -10px 25px 0px #2a2a8493, -10px 10px 25px 0px #aa89a0af;
+}
+
+.content_page .btn_plugins:active {
   box-shadow: 5px -5px 20px 0px #2a2a846e, -5px 5px 20px 0px #aa89a081;
   transition: all 0.1s;
 }
@@ -362,6 +514,18 @@ export default {
     box-shadow: 5px -5px 20px 0px #2a2a846e, -5px 5px 20px 0px #aa89a081;
   }
 
+  .content_page .btn_plugins {
+    margin-bottom: 28px;
+    font-size: 23px;
+    font-family: "Baloo 2", cursive;
+    border-radius: 30px;
+    padding: 6px 12px;
+  }
+
+  .content_page .btn_plugins:hover {
+    box-shadow: 5px -5px 20px 0px #2a2a846e, -5px 5px 20px 0px #aa89a081;
+  }
+
   .content_page .btn_github_project {
     padding: 6px 25px;
     border-radius: 30px;
@@ -399,6 +563,18 @@ export default {
   }
 
   .content_page .btn_download:hover {
+    box-shadow: 5px -5px 20px 0px #2a2a846e, -5px 5px 20px 0px #aa89a081;
+  }
+
+  .content_page .btn_plugins {
+    margin-bottom: 28px;
+    font-size: 23px;
+    font-family: "Baloo 2", cursive;
+    border-radius: 30px;
+    padding: 10px 12px;
+  }
+
+  .content_page .btn_plugins:hover {
     box-shadow: 5px -5px 20px 0px #2a2a846e, -5px 5px 20px 0px #aa89a081;
   }
 
