@@ -64,7 +64,7 @@ export default {
         .timeline()
         .from(
           content_page.value,
-          { duration: 0.2, opacity: 0, ease: "power2.out" },
+          { duration: 0.3, opacity: 0, ease: "power2.out" },
           0.2
         )
         .from(
@@ -175,7 +175,7 @@ export default {
 .content_page .btn_download {
   background: transparent;
   border: 0px;
-  color: black;
+  color: rgb(255, 255, 255);
   padding: 20px 50px;
   margin-top: 15px;
   margin-bottom: 40px;
@@ -198,9 +198,8 @@ export default {
   left: -100px;
   background-image: linear-gradient(
     225deg,
-    #ffc9b3 0%,
-    #aa89a0 50%,
-    #2a2a84 100%
+    #c4ba9a 0%,
+    #8979e6 100%
   );
   z-index: -1;
   transition: all 0.5s;
@@ -211,11 +210,11 @@ export default {
 }
 
 .content_page .btn_download:hover {
-  box-shadow: 10px -10px 25px 0px #2a2a8493, -10px 10px 25px 0px #aa89a0af;
+  box-shadow: 10px -10px 25px 0px #8979e681, -10px 10px 25px 0px #c4ba9a85;
 }
 
 .content_page .btn_download:active {
-  box-shadow: 5px -5px 20px 0px #2a2a846e, -5px 5px 20px 0px #aa89a081;
+  box-shadow: 5px -5px 20px 0px #8979e681, -5px 5px 20px 0px #c4ba9a85;
   transition: all 0.1s;
 }
 

@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <p>Home</p>
-    </div>
+  <div class="main">
+    <p>Home</p>
+  </div>
 </template>
 
 <script>
@@ -11,5 +11,9 @@ export default {
 </script>
 
 <style scoped>
-
+.main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 </style>

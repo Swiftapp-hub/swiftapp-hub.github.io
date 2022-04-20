@@ -14,13 +14,38 @@ html, body {
     z-index: 0;
     vertical-align: middle; 
     overflow: hidden;
-    background: url(bg.svg);
+    background: url(bg_home.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     animation: fadein 2s;
     -moz-animation: fadein 2s; /* Firefox */
     -webkit-animation: fadein 2s; /* Safari and Chrome */
     -o-animation: fadein 2s; /* Opera */
+}
+
+strong {
+    font-size: 2em;
+    color: #fff;
+    font-weight: bold;
+}
+
+.error {
+    display: flex;
+    background: rgba(19, 19, 19, 0.747);
+    padding: 50px;
+    border-radius: 30px;
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    right: 20%;
+    bottom: 20%;
+    z-index: 20;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 @keyframes fadein {
@@ -53,11 +78,5 @@ html, body {
     }
     to {
         opacity: 1;
-    }
-}
-
-@media all and (orientation: portrait) {
-    .bg {
-        bottom: 30%;
     }
 }

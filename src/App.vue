@@ -1,42 +1,44 @@
 <template>
-  <nav id="nav_bar" ref="nav_bar">
-    <a id="logo" ref="logo" href="https://swiftapp-hub.github.io" title="Home">Swiftapp</a>
+  <header>
+    <nav id="nav_bar" ref="nav_bar">
+      <a id="logo" ref="logo" href="https://swiftapp-hub.github.io" title="Home">Swiftapp</a>
 
-    <div class="spacer"></div>
+      <div class="spacer"></div>
 
-    <div class="tabs">
-      <div class="tab_item" ref="btn_home">
-        <input type="radio" id="tab1" name="tab-control" />
-        <label for="tab1" @click="changePage('HomePage')">
-          <img src="../src/assets/home.png" alt="Home" />
-          <div class="text">Home</div>
-        </label>
+      <div class="tabs">
+        <div class="tab_item" ref="btn_home">
+          <input type="radio" id="tab1" name="tab-control" checked />
+          <label for="tab1" @click="changePage('HomePage')">
+            <img src="../src/assets/home.png" alt="Home" />
+            <div class="text">Home</div>
+          </label>
+        </div>
+        <div class="tab_item" ref="btn_swifty">
+          <input type="radio" id="tab2" name="tab-control" />
+          <label for="tab2" @click="changePage('SwiftyAssistant')">
+            <img src="../src/assets/smile.png" alt="Swifty" />
+            <div class="text">Swifty</div>
+          </label>
+        </div>
+        <div class="tab_item" ref="btn_contact">
+          <input type="radio" id="tab3" name="tab-control" />
+          <label for="tab3" @click="changePage('ContactPage')">
+            <img src="../src/assets/contact.png" alt="Contact" />
+            <div class="text">Contact</div>
+          </label>
+        </div>
       </div>
-      <div class="tab_item" ref="btn_swifty">
-        <input type="radio" id="tab2" name="tab-control" checked />
-        <label for="tab2" @click="changePage('SwiftyAssistant')">
-          <img src="../src/assets/smile.png" alt="Swifty" />
-          <div class="text">Swifty</div>
-        </label>
-      </div>
-      <div class="tab_item" ref="btn_contact">
-        <input type="radio" id="tab3" name="tab-control" />
-        <label for="tab3" @click="changePage('ContactPage')">
-          <img src="../src/assets/contact.png" alt="Contact" />
-          <div class="text">Contact</div>
-        </label>
-      </div>
-    </div>
 
-    <div class="spacer2"></div>
+      <div class="spacer2"></div>
 
-    <div class="onglets">
-      <button id="btn_github" ref="btn_github" @click="open('https://github.com/Swiftapp-hub')">
-        <div>GitHub</div>
-        <img src="../src/assets/github-brands.png" />
-      </button>
-    </div>
-  </nav>
+      <div class="onglets">
+        <button id="btn_github" ref="btn_github" @click="open('https://github.com/Swiftapp-hub')">
+          <div>GitHub</div>
+          <img src="../src/assets/github-brands.png" alt="GitHub profile" />
+        </button>
+      </div>
+    </nav>
+  </header>
 
   <transition name="component-fade" mode="out-in">
     <component v-bind:is="currentPage"></component>
@@ -59,7 +61,7 @@ export default {
   },
   data() {
     return {
-      currentPage: "SwiftyAssistant",
+      currentPage: "HomePage",
     };
   },
   setup() {
@@ -141,7 +143,7 @@ export default {
 <style>
 .component-fade-enter-active,
 .component-fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s ease;
 }
 .component-fade-enter,
 .component-fade-leave-to {
@@ -196,17 +198,17 @@ nav .tabs .tab_item label {
 }
 
 nav .tabs .tab_item label:hover {
-  background: #bf99a583;
+  background: #8979e654;
 }
 
 nav .tabs .tab_item input:checked + label {
-  background: #bf99a5;
+  background: #8979e6;
 }
 
 nav .tabs .text {
   font-size: 1.2em;
   font-family: "Baloo 2", cursive;
-  color: #fff;
+  color: rgb(255, 255, 255);
 }
 
 nav {
@@ -220,6 +222,8 @@ nav {
   transition: all 0.25s;
   position: fixed;
   z-index: 1;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 nav a {
@@ -229,13 +233,14 @@ nav a {
   font-size: 1.8em;
   margin-left: 20px;
   height: 100%;
+  color: #8979e6;
 }
 
 nav .onglets button {
   align-items: center;
   border: 4;
   border-radius: 30px;
-  border-color: #bf99a5;
+  border-color: #8979e6;
   border-style: solid;
   background: transparent;
   color: white;
@@ -250,12 +255,12 @@ nav .onglets button {
 }
 
 nav .onglets button:hover {
-  background: #bf99a5;
+  background: #8979e6;
 }
 
 nav .onglets button:active {
-  background: #997983;
-  border-color: #997983;
+  background: #8979e6d3;
+  border-color: #8979e6d3;
   transition: all 0.15s;
 }
 

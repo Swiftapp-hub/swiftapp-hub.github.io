@@ -73,12 +73,13 @@ export default {
   justify-content: center;
   align-items: center;
   overflow-x: auto;
+  margin-bottom: 5px;
 }
 
 .dialog-screenshot-body img {
   width: 40%;
   height: 50%;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 @media all and (max-width: 900px) {

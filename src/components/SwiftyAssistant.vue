@@ -1,117 +1,130 @@
 <template>
-  <div class="containeur">
-    <div class="content_page" ref="content_page">
-      <div class="content">
-        <img class="icon_swifty" ref="icon_swifty" src="../assets/swifty.png" />
-        <h1 class="h1" ref="h1">Swifty Assistant</h1>
-        <h2 id="h2" ref="h2">
-          A simple, user-friendly, personal assistant based on an extension
-          system
-        </h2>
-        <h2 id="h3" ref="h3">
-          Swifty is created to be useful to both beginners and computer experts!
-          It works offline and does not collect any personal data! If you like
-          Swifty Assistant and you find it useful, please feel free to
-          contribute to the project, thank you.
-        </h2>
-        <button
-          ref="btn_screenshot"
-          class="btn_screenshot"
-          @click="
+  <div>
+    <div class="bg_swifty" ref="bg_swifty"></div>
+
+    <div class="containeur">
+      <div class="content_page" ref="content_page">
+        <div class="content">
+          <img
+            class="icon_swifty"
+            ref="icon_swifty"
+            alt="Icon swifty assistant"
+            src="../assets/swifty.png"
+          />
+          <h1 class="h1" ref="h1">Swifty Assistant</h1>
+          <h2 id="h2" ref="h2">
+            A simple, user-friendly, personal assistant based on an extension
+            system
+          </h2>
+          <h2 id="h3" ref="h3">
+            Swifty is created to be useful to both beginners and computer experts!
+            It works offline and does not collect any personal data! If you like
+            Swifty Assistant and you find it useful, please feel free to
+            contribute to the project, thank you.
+          </h2>
+          <button
+            ref="btn_screenshot"
+            class="btn_screenshot"
+            @click="
             showDialogScreenshot()
           "
-        >Screenshot</button>
-      </div>
+          >Screenshot</button>
+        </div>
 
-      <div class="line" ref="line"></div>
+        <div class="line" ref="line"></div>
 
-      <div class="content">
-        <button
-          id="btn_download"
-          ref="btn_download"
-          class="btn_download"
-          @click="
+        <div class="content">
+          <button
+            id="btn_download"
+            ref="btn_download"
+            class="btn_download"
+            @click="
             download(
               'https://github.com/Swiftapp-hub/Swifty-Assistant/releases/download/v1.0.0-alpha3/SwiftyAssistant-OnLine-Installer.run'
             )
           "
-        >Download v1.0.0-alpha3 Linux</button>
-        <button
-          id="btn_plugins"
-          ref="btn_plugins"
-          class="btn_plugins"
-          @click="
+          >Download v1.0.0-alpha3 Linux</button>
+          <button
+            id="btn_plugins"
+            ref="btn_plugins"
+            class="btn_plugins"
+            @click="
             showDialogPlugins()
           "
-        >Download plugins</button>
-        <button
-          id="btn_github_project"
-          ref="btn_github_project"
-          class="btn_github_project"
-          @click="open('https://github.com/Swiftapp-hub/Swifty-Assistant')"
-        >
-          <img src="../assets/github-brands.png" />
-        </button>
+          >Download plugins</button>
+          <button
+            id="btn_github_project"
+            ref="btn_github_project"
+            class="btn_github_project"
+            @click="open('https://github.com/Swiftapp-hub/Swifty-Assistant')"
+          >
+            <img src="../assets/github-brands.png" alt="GitHub repository" />
+          </button>
+        </div>
       </div>
+
+      <div class="margin"></div>
+
+      <Teleport to="body">
+        <DialogVue :show="showDialog" @close="showDialog = false">
+          <template #header>
+            <h2>Swifty Assistant is downloading</h2>
+          </template>
+          <template #body>
+            <h3>
+              Once Swifty Assistant is downloaded, make it executable then double
+              click on it to start the installation
+            </h3>
+          </template>
+        </DialogVue>
+      </Teleport>
+
+      <Teleport to="body">
+        <DialogVue :show="showPlugins" @close="showPlugins = false">
+          <template #header>
+            <h2>Swifty Assistant plugins</h2>
+          </template>
+          <template #body>
+            <div>
+              <a
+                href="https://github.com/Swiftapp-hub/HelloWorld-Plugin-Swifty-Assistant"
+                target="_blank"
+              >Hello World</a>
+              <a
+                href="https://github.com/Swiftapp-hub/ControlSettings-Plugin-Swifty-Assistant"
+                target="_blank"
+              >Control Settings</a>
+              <a
+                href="https://github.com/Swiftapp-hub/WebSearch-Plugin-Swifty-Assistant"
+                target="_blank"
+              >Web Search</a>
+            </div>
+          </template>
+        </DialogVue>
+      </Teleport>
+
+      <Teleport to="body">
+        <DialogScreenshots :show="showScreenshot" @close="showScreenshot = false">
+          <template #header>
+            <h2>Screenshot</h2>
+          </template>
+          <template #body>
+            <div>
+              <img
+                alt="Screenshot swifty assistant home page"
+                title="Home page"
+                src="https://raw.githubusercontent.com/Swiftapp-hub/Swifty-Assistant/master/screenshot/swifty.png"
+              />
+              <img
+                alt="Screenshot swifty assistant settings page"
+                title="Settings page"
+                src="https://raw.githubusercontent.com/Swiftapp-hub/Swifty-Assistant/master/screenshot/swifty1.png"
+              />
+            </div>
+          </template>
+        </DialogScreenshots>
+      </Teleport>
     </div>
-
-    <div class="margin"></div>
-
-    <Teleport to="body">
-      <DialogVue :show="showDialog" @close="showDialog = false">
-        <template #header>
-          <h2>Swifty Assistant is downloading</h2>
-        </template>
-        <template #body>
-          <h3>
-            Once Swifty Assistant is downloaded, make it executable then double
-            click on it to start the installation
-          </h3>
-        </template>
-      </DialogVue>
-    </Teleport>
-
-    <Teleport to="body">
-      <DialogVue :show="showPlugins" @close="showPlugins = false">
-        <template #header>
-          <h2>Swifty Assistant plugins</h2>
-        </template>
-        <template #body>
-          <div>
-            <a
-              href="https://github.com/Swiftapp-hub/HelloWorld-Plugin-Swifty-Assistant"
-              target="_blank"
-            >Hello World</a>
-            <a
-              href="https://github.com/Swiftapp-hub/ControlSettings-Plugin-Swifty-Assistant"
-              target="_blank"
-            >Control Settings</a>
-            <a
-              href="https://github.com/Swiftapp-hub/WebSearch-Plugin-Swifty-Assistant"
-              target="_blank"
-            >Web Search</a>
-          </div>
-        </template>
-      </DialogVue>
-    </Teleport>
-
-    <Teleport to="body">
-      <DialogScreenshots :show="showScreenshot" @close="showScreenshot = false">
-        <template #header>
-          <h2>Screenshot</h2>
-        </template>
-        <template #body>
-          <div>
-            <img
-              src="https://raw.githubusercontent.com/Swiftapp-hub/Swifty-Assistant/master/screenshot/swifty.png"
-            />
-            <img
-              src="https://raw.githubusercontent.com/Swiftapp-hub/Swifty-Assistant/master/screenshot/swifty1.png"
-            />
-          </div>
-        </template>
-      </DialogScreenshots>
-    </Teleport>
   </div>
 </template>
 
@@ -135,6 +148,7 @@ export default {
     };
   },
   setup() {
+    const bg_swifty = ref("bg_swifty");
     const icon_swifty = ref("icon_swifty");
     const h1 = ref("h1");
     const h2 = ref("h2");
@@ -152,8 +166,13 @@ export default {
       anim = gsap
         .timeline()
         .from(
+          bg_swifty.value,
+          { duration: 0.3, opacity: 0, ease: "power2.out" },
+          0.1
+        )
+        .from(
           content_page.value,
-          { duration: 0.2, opacity: 0, ease: "power2.out" },
+          { duration: 0.3, opacity: 0, ease: "power2.out" },
           0.2
         )
         .from(
@@ -204,6 +223,7 @@ export default {
     });
 
     return {
+      bg_swifty,
       icon_swifty,
       h1,
       h2,
@@ -236,6 +256,17 @@ export default {
 </script>
 
 <style scoped>
+.bg_swifty {
+  background-color: rgba(21, 16, 25, 0.945);
+  background-image: url("../assets/bg_swifty.svg");
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .content_page {
   position: absolute;
   display: flex;
