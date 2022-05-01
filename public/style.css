@@ -22,11 +22,12 @@ html, body {
     -moz-animation: fadein 2s; /* Firefox */
     -webkit-animation: fadein 2s; /* Safari and Chrome */
     -o-animation: fadein 2s; /* Opera */
+    z-index: -2;
 }
 
 strong {
     font-size: 2em;
-    color: #fff;
+    color: white;
     font-weight: bold;
 }
 

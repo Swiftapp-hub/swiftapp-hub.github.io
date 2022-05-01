@@ -72,12 +72,10 @@ export default {
 .dialog-header h2 {
   margin-top: 0;
   color: #42b983;
-  font-family: "Raleway", sans-serif;
 }
 
 .dialog-body h3 {
-  color: white;
-  font-family: "Raleway", sans-serif;
+  font-size: 18px;
 }
 
 .dialog-body div {
@@ -86,8 +84,6 @@ export default {
 }
 
 .dialog-body a {
-  color: white;
-  font-family: "Raleway", sans-serif;
   margin-bottom: 10px;
 }
 
@@ -121,15 +117,6 @@ export default {
   border-color: #997983;
   transition: all 0.15s;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter-from {
   opacity: 0;

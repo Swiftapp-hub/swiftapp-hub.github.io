@@ -1,27 +1,27 @@
 <template>
   <header>
-    <nav id="nav_bar" ref="nav_bar">
-      <a id="logo" ref="logo" href="https://swiftapp-hub.github.io" title="Home">Swiftapp</a>
+    <nav ref="nav_bar">
+      <a ref="logo" href="" title="Home"><span translate="no">Swiftapp</span></a>
 
       <div class="spacer"></div>
 
       <div class="tabs">
         <div class="tab_item" ref="btn_home">
-          <input type="radio" id="tab1" name="tab-control" checked />
+          <input type="radio" ref="home" id="tab1" name="tab-control" checked />
           <label for="tab1" @click="changePage('HomePage')">
             <img src="../src/assets/home.png" alt="Home" />
             <div class="text">Home</div>
           </label>
         </div>
         <div class="tab_item" ref="btn_swifty">
-          <input type="radio" id="tab2" name="tab-control" />
+          <input type="radio" ref="swifty" id="tab2" name="tab-control" />
           <label for="tab2" @click="changePage('SwiftyAssistant')">
             <img src="../src/assets/smile.png" alt="Swifty" />
-            <div class="text">Swifty</div>
+            <div class="text"><span translate="no">Swifty</span></div>
           </label>
         </div>
         <div class="tab_item" ref="btn_contact">
-          <input type="radio" id="tab3" name="tab-control" />
+          <input type="radio" ref="contact" id="tab3" name="tab-control" />
           <label for="tab3" @click="changePage('ContactPage')">
             <img src="../src/assets/contact.png" alt="Contact" />
             <div class="text">Contact</div>
@@ -32,7 +32,7 @@
       <div class="spacer2"></div>
 
       <div class="onglets">
-        <button id="btn_github" ref="btn_github" @click="open('https://github.com/Swiftapp-hub')">
+        <button ref="btn_github" @click="open('https://github.com/Swiftapp-hub')">
           <div>GitHub</div>
           <img src="../src/assets/github-brands.png" alt="GitHub profile" />
         </button>
@@ -41,7 +41,7 @@
   </header>
 
   <transition name="component-fade" mode="out-in">
-    <component v-bind:is="currentPage"></component>
+    <component v-bind:is="currentPage" @changePageSignal="changePage"></component>
   </transition>
 </template>
 
@@ -71,6 +71,10 @@ export default {
     const btn_home = ref("btn_home");
     const btn_swifty = ref("btn_swifty");
     const btn_contact = ref("btn_contact");
+
+    const home = ref("home");
+    const swifty = ref("swifty");
+    const contact = ref("contact");
 
     let anim = null;
 
@@ -112,20 +116,38 @@ export default {
       btn_contact,
       anim,
       nav_bar,
+      home,
+      swifty,
+      contact,
     };
   },
   methods: {
     handleScroll() {
-      if (window.scrollY > 35) {
+      if (window.scrollY > 35 && this.currentPage !== "HomePage") {
         this.nav_bar.style.backgroundColor = "#050505";
         this.nav_bar.style.boxShadow = "0px 5px 15px 0px rgba(7, 7, 7, 0.7)";
-      } else {
+      }
+      else if (window.scrollY > window.innerHeight-70 && this.currentPage === "HomePage") {
+        this.nav_bar.style.backgroundColor = "#050505";
+        this.nav_bar.style.boxShadow = "0px 5px 15px 0px rgba(7, 7, 7, 0.7)";
+      }
+      else {
         this.nav_bar.style.backgroundColor = "rgba(10, 10, 10, 0.700)";
         this.nav_bar.style.boxShadow = "0px 0px 0px 0px rgba(7, 7, 7, 0.534)";
       }
     },
     changePage(page) {
       this.currentPage = page;
+      // change radio button checked
+      if (page === "HomePage") {
+        this.home.checked = true;
+      }
+      else if (page === "SwiftyAssistant") {
+        this.swifty.checked = true;
+      }
+      else if (page === "ContactPage") {
+        this.contact.checked = true;
+      }
     },
     open(link) {
       window.open(link);
@@ -133,6 +155,7 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
+    this.home.checked = true;
   },
   beforeUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -341,6 +364,203 @@ nav .onglets button:active {
     font-size: 0.9em;
     transition: all 0.4s;
     transition-property: background;
+  }
+}
+
+/*************************/
+/****** Base styles ******/
+/*************************/
+
+/* Button */
+.btn {
+  background: transparent;
+  border: 0px;
+  color: rgb(255, 255, 255);
+  padding: 20px 50px;
+  margin-top: 15px;
+  margin-bottom: 40px;
+  font-size: 30px;
+  font-family: "Baloo 2", cursive;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  transition-property: box-shadow;
+  overflow: hidden;
+  border-radius: 60px;
+}
+
+.btn::after {
+  content: "";
+  width: 700px;
+  height: 700px;
+  position: absolute;
+  top: -90px;
+  left: -100px;
+  background-image: linear-gradient(225deg, #d3c080 0%, #8979e6 100%);
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+.btn:hover::after {
+  transform: rotate(150deg);
+}
+
+.btn:hover {
+  box-shadow: 10px -10px 25px 0px #8979e681, -10px 10px 25px 0px #c4ba9a85;
+}
+
+.btn:active {
+  box-shadow: 5px -5px 20px 0px #8979e681, -5px 5px 20px 0px #c4ba9a85;
+  transition: all 0.1s;
+}
+
+/* Title */
+.title {
+  color: white;
+  font-family: "Raleway", sans-serif;
+  font-size: 45px;
+}
+
+/* Text */
+.text {
+  color: white;
+  font-family: "Raleway", sans-serif;
+  font-size: 20px;
+}
+
+/* Link */
+.link{
+  color: white;
+  font-family: "Raleway", sans-serif;
+}
+
+/* Base Container */
+.base_container {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  top: 15%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  padding: 2%;
+  border-radius: 40px;
+  box-shadow: 0px 0px 35px 18px rgba(7, 7, 7, 0.534);
+  background: rgba(7, 7, 7, 0.664);
+  text-align: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Responsive */
+@media all and (orientation: portrait) {
+  /* Button */
+  .btn {
+    margin-top: 30px;
+  }
+
+  /* Base Container */
+  .base_container {
+    flex-direction: column;
+    left: 8%;
+    right: 8%;
+    padding: 3%;
+    box-shadow: 0px 0px 25px 10px rgba(7, 7, 7, 0.534);
+  }
+}
+
+@media all and (max-width: 851px) {
+  /* Button */
+  .btn {
+    margin-bottom: 28px;
+    font-size: 23px;
+    font-family: "Baloo 2", cursive;
+    border-radius: 30px;
+    padding: 6px 12px;
+  }
+
+  .btn:hover {
+    box-shadow: 5px -5px 20px 0px #2a2a846e, -5px 5px 20px 0px #aa89a081;
+  }
+
+  /* Title */
+  .title {
+    font-size: 42px;
+  }
+
+  /* Text */
+  .text {
+    font-size: 17px;
+  }
+}
+
+@media all and (max-height: 800px) and (max-width: 1100px) and (orientation: landscape) {
+  /* Button */
+  .btn {
+    margin-bottom: 28px;
+    font-size: 23px;
+    font-family: "Baloo 2", cursive;
+    border-radius: 30px;
+    padding: 10px 12px;
+  }
+
+  .btn:hover {
+    box-shadow: 5px -5px 20px 0px #2a2a846e, -5px 5px 20px 0px #aa89a081;
+  }
+
+  /* Title */
+  .title {
+    font-size: 40px;
+  }
+
+  /* Text */
+  .text {
+    font-size: 17px;
+  }
+}
+
+@media all and (max-height: 660px) and (orientation: landscape) {
+  /* Container */
+  .container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 18%;
+    left: 8%;
+    right: 8%;
+    text-align: center;
+    align-items: center;
+  }
+
+  /* Base Container */
+  .base_container {
+    position: unset;
+    bottom: unset;
+  }
+}
+
+@media all and (max-height: 930px) and (orientation: portrait) {
+  /* Container */
+  .container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 15%;
+    left: 8%;
+    right: 8%;
+    text-align: center;
+    align-items: center;
+  }
+
+  /* Base Container */
+  .base_container {
+    position: unset;
+    bottom: unset;
+    justify-content: center;
   }
 }
 </style>
