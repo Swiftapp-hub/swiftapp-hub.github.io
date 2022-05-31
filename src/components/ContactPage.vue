@@ -6,9 +6,10 @@
         <h2 class="text" ref="h2">
           To contact me, make a suggestion, or ask me a question, send an email
           to
-          <a class="link" href="mailto:swiftyassistant.io@gmail.com">
-            swiftyassistant.io@gmail.com</a
-          >
+          <a
+            class="link"
+            href="mailto:swiftyassistant.io@gmail.com"
+          >swiftyassistant.io@gmail.com</a>
           , thanks.
         </h2>
       </div>
@@ -23,16 +24,17 @@
           autonomous and creative, I learned several programming languages such
           as C++, Java and more recently HTML, CSS and JavaScript.
         </h2>
-        <h2 class="text" ref="h03">
-          If you are interested in my profile, you can download my CV below:
-        </h2>
-        <button
-          ref="btn_download"
-          class="btn"
-          @click="download('https://cvdesignr.com/p/6214f6ce3f9c1')"
-        >
-          Download my CV
-        </button>
+        <h2
+          class="text"
+          ref="h03"
+        >If you are interested, you can visit my LinkedIn profil below:</h2>
+        <div>
+          <button
+            ref="btn_linkedin"
+            class="btn"
+            @click="download('https://www.linkedin.com/in/nantsa-montillet/')"
+          >LinkedIn profil</button>
+        </div>
       </div>
     </div>
 
@@ -52,7 +54,7 @@ export default {
     const h01 = ref("h01");
     const h02 = ref("h02");
     const h03 = ref("h03");
-    const btn_download = ref("btn_download");
+    const btn_linkedin = ref("btn_linkedin");
     const line = ref("line");
     const content_page = ref("content_page");
 
@@ -92,7 +94,7 @@ export default {
           1.8
         )
         .from(
-          btn_download.value,
+          btn_linkedin.value,
           { duration: 0.8, y: 20, opacity: 0, ease: "power2.out" },
           2.2
         )
@@ -105,7 +107,7 @@ export default {
       h01,
       h02,
       h03,
-      btn_download,
+      btn_linkedin,
       line,
       content_page,
       anim,
