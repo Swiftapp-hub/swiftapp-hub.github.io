@@ -1,32 +1,25 @@
 <template>
   <header>
     <nav ref="nav_bar">
-      <a ref="logo" href="" title="Home"><span translate="no">Swiftapp</span></a>
+      <a ref="logo" href="/" title="Home">
+        <span translate="no">Swiftapp</span>
+      </a>
 
       <div class="spacer"></div>
 
-      <div class="tabs">
-        <div class="tab_item" ref="btn_home">
-          <input type="radio" ref="home" id="tab1" name="tab-control" checked />
-          <label for="tab1" @click="changePage('HomePage')">
-            <img src="../src/assets/home.png" alt="Home" />
-            <div class="text">Home</div>
-          </label>
-        </div>
-        <div class="tab_item" ref="btn_swifty">
-          <input type="radio" ref="swifty" id="tab2" name="tab-control" />
-          <label for="tab2" @click="changePage('SwiftyAssistant')">
-            <img src="../src/assets/smile.png" alt="Swifty" />
-            <div class="text"><span translate="no">Swifty</span></div>
-          </label>
-        </div>
-        <div class="tab_item" ref="btn_contact">
-          <input type="radio" ref="contact" id="tab3" name="tab-control" />
-          <label for="tab3" @click="changePage('ContactPage')">
-            <img src="../src/assets/contact.png" alt="Contact" />
-            <div class="text">Contact</div>
-          </label>
-        </div>
+      <div class="tabs" ref="tabs">
+        <router-link class="tab_item" ref="btn_home" to="/">
+          <img src="../src/assets/home.png" alt="Home" />
+          <div>Home</div>
+        </router-link>
+        <router-link class="tab_item" ref="btn_swifty" to="/swifty-assistant">
+          <img src="../src/assets/smile.png" alt="Swifty" />
+          <div><span translate="no">Swifty</span></div>
+        </router-link>
+        <router-link class="tab_item" ref="btn_contact" to="/contact">
+          <img src="../src/assets/contact.png" alt="Contact" />
+          <div>Contact</div>
+        </router-link>
       </div>
 
       <div class="spacer2"></div>
@@ -40,25 +33,19 @@
     </nav>
   </header>
 
-  <transition name="component-fade" mode="out-in">
-    <component v-bind:is="currentPage" @changePageSignal="changePage"></component>
-  </transition>
+  <router-view v-slot="{ Component }">
+    <transition name="component-fade" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <script>
-import SwiftyAssistant from "./components/SwiftyAssistant.vue";
-import HomePage from "./components/HomePage.vue";
-import ContactPage from "./components/ContactPage.vue";
 import gsap from "gsap";
 import { onMounted, ref } from "@vue/runtime-core";
 
 export default {
   name: "App",
-  components: {
-    SwiftyAssistant,
-    HomePage,
-    ContactPage,
-  },
   data() {
     return {
       currentPage: "HomePage",
@@ -68,13 +55,6 @@ export default {
     const logo = ref("logo");
     const btn_github = ref("btn_github");
     const nav_bar = ref("nav_bar");
-    const btn_home = ref("btn_home");
-    const btn_swifty = ref("btn_swifty");
-    const btn_contact = ref("btn_contact");
-
-    const home = ref("home");
-    const swifty = ref("swifty");
-    const contact = ref("contact");
 
     let anim = null;
 
@@ -82,43 +62,17 @@ export default {
       anim = gsap
         .timeline()
         .from(
-          logo.value,
-          { duration: 1, y: -100, opacity: 0, ease: "power2.out" },
-          0.1
-        )
-        .from(
-          btn_home.value,
-          { duration: 1, y: -100, opacity: 0, ease: "power2.out" },
+          nav_bar.value,
+          { duration: 1, opacity: 0 },
           0.4
         )
-        .from(
-          btn_swifty.value,
-          { duration: 1, y: -100, opacity: 0, ease: "power2.out" },
-          0.7
-        )
-        .from(
-          btn_contact.value,
-          { duration: 1, y: -100, opacity: 0, ease: "power2.out" },
-          1
-        )
-        .from(
-          btn_github.value,
-          { duration: 1, y: -100, opacity: 0, ease: "power2.out" },
-          1.2
-        );
     });
 
     return {
       logo,
       btn_github,
-      btn_home,
-      btn_swifty,
-      btn_contact,
       anim,
       nav_bar,
-      home,
-      swifty,
-      contact,
     };
   },
   methods: {
@@ -127,7 +81,7 @@ export default {
         this.nav_bar.style.backgroundColor = "#050505";
         this.nav_bar.style.boxShadow = "0px 5px 15px 0px rgba(7, 7, 7, 0.7)";
       }
-      else if (window.scrollY > window.innerHeight-70 && this.currentPage === "HomePage") {
+      else if (window.scrollY > window.innerHeight - 70 && this.currentPage === "HomePage") {
         this.nav_bar.style.backgroundColor = "#050505";
         this.nav_bar.style.boxShadow = "0px 5px 15px 0px rgba(7, 7, 7, 0.7)";
       }
@@ -136,26 +90,12 @@ export default {
         this.nav_bar.style.boxShadow = "0px 0px 0px 0px rgba(7, 7, 7, 0.534)";
       }
     },
-    changePage(page) {
-      this.currentPage = page;
-      // change radio button checked
-      if (page === "HomePage") {
-        this.home.checked = true;
-      }
-      else if (page === "SwiftyAssistant") {
-        this.swifty.checked = true;
-      }
-      else if (page === "ContactPage") {
-        this.contact.checked = true;
-      }
-    },
     open(link) {
-      window.open(link);
+      location.href = link;
     },
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    this.home.checked = true;
   },
   beforeUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
@@ -171,6 +111,13 @@ export default {
 .component-fade-enter,
 .component-fade-leave-to {
   opacity: 0;
+}
+
+nav .tabs .tab_item {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0px 5px;
 }
 
 nav .tabs {
@@ -196,16 +143,7 @@ nav .onglets button {
   display: block;
 }
 
-nav .tabs input {
-  display: none;
-}
-nav .tabs .tab_item {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-nav .tabs .tab_item label {
+nav .tabs a {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -220,15 +158,15 @@ nav .tabs .tab_item label {
   border-radius: 30px;
 }
 
-nav .tabs .tab_item label:hover {
+nav .tabs a:hover {
   background: #8979e654;
 }
 
-nav .tabs .tab_item input:checked + label {
+nav .tabs a.router-link-exact-active {
   background: #8979e6;
 }
 
-nav .tabs .text {
+nav .tabs a {
   font-size: 1.2em;
   font-family: "Baloo 2", cursive;
   color: rgb(255, 255, 255);
@@ -305,11 +243,11 @@ nav .onglets button:active {
     margin-left: 8px;
   }
 
-  nav .tabs .text {
+  nav .tabs a {
     font-size: 1.1em;
   }
 
-  nav .tabs .tab_item label {
+  nav .tabs .tab_item {
     padding-left: 10px;
     padding-right: 10px;
     margin-right: 5px;
@@ -338,7 +276,7 @@ nav .onglets button:active {
     font-size: 1.2em;
   }
 
-  nav .tabs .text {
+  nav .tabs .tab_item div {
     display: none;
   }
 
@@ -429,7 +367,7 @@ nav .onglets button:active {
 }
 
 /* Link */
-.link{
+.link {
   color: white;
   font-family: "Raleway", sans-serif;
 }

@@ -32,7 +32,7 @@
           <button
             ref="btn_linkedin"
             class="btn"
-            @click="download('https://www.linkedin.com/in/nantsa-montillet/')"
+            @click="open('https://www.linkedin.com/in/nantsa-montillet/')"
           >LinkedIn profil</button>
         </div>
       </div>
@@ -114,8 +114,8 @@ export default {
     };
   },
   methods: {
-    download(link) {
-      open(link);
+    open(link) {
+      location.href = link;
     },
   },
 };
