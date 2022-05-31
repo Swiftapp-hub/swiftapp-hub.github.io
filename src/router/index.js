@@ -6,18 +6,19 @@ import ContactPage from "../components/ContactPage.vue";
 const routes = [
   {
     path: '/',
-    name: 'home',
     component: HomePage
   },
   {
     path: '/swifty-assistant',
-    name: 'swifty',
     component: SwiftyAssistant
   },
   {
     path: '/contact',
-    name: 'contact',
     component: ContactPage
+  },
+  {
+    path: "/:catchAll(.*)",
+    redirect: "/"
   }
 ]
 
