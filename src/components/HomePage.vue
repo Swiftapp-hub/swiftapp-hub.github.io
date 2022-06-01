@@ -48,7 +48,7 @@
       </ul>
 
       <h1 class="title title_projects" ref="title_projects">My projects:</h1>
-      <div class="sw_assist" ref="sw_assist" @click="changePage('SwiftyAssistant')">
+      <div class="sw_assist" ref="sw_assist" @click="changePage('/swifty-assistant')">
         <img src="../assets/swifty.png" alt="Swifty Assistant icon" />
         <h2>Swifty Assistant</h2>
         <p
@@ -77,7 +77,6 @@ import { onMounted, ref } from "@vue/runtime-core";
 
 export default {
   name: 'HomePage',
-  emits: ["changePageSignal"],
   setup() {
     const bg_home = ref("bg_home");
     const container = ref("container");
@@ -158,10 +157,10 @@ export default {
       }
     },
     open(link) {
-      window.open(link);
+      window.location.href = link;
     },
     changePage(page) {
-      this.$emit("changePageSignal", page);
+      this.$router.push(page);
     },
   },
 }
