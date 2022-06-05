@@ -136,6 +136,9 @@ export default {
       sw_assist,
     };
   },
+  created() {
+    document.title = "Swiftapp";
+  },
   // handle scroll
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
@@ -473,12 +476,12 @@ export default {
 
 .projects_sec .sw_assist:hover {
   background: #8979e6be;
-  box-shadow: 0px 0px 35px 18px rgba(7, 7, 7, 0.534);
+  box-shadow: 0px 0px 30px 15px rgba(7, 7, 7, 1);
 }
 
 .projects_sec .sw_assist:active {
   background: #8979e6a4;
-  box-shadow: 0px 0px 20px 10px rgba(7, 7, 7, 0.534);
+  box-shadow: 0px 0px 20px 10px rgba(7, 7, 7, 1);
   transition: all 0.1s;
 }
 

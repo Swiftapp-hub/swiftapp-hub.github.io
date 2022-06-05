@@ -46,11 +46,6 @@ import { onMounted, ref } from "@vue/runtime-core";
 
 export default {
   name: "App",
-  data() {
-    return {
-      currentPage: "HomePage",
-    };
-  },
   setup() {
     const logo = ref("logo");
     const btn_github = ref("btn_github");
@@ -64,7 +59,7 @@ export default {
         .from(
           nav_bar.value,
           { duration: 1, opacity: 0 },
-          0.4
+          0.8
         )
     });
 
@@ -78,10 +73,6 @@ export default {
   methods: {
     handleScroll() {
       if (window.scrollY > 35 && this.currentPage !== "HomePage") {
-        this.nav_bar.style.backgroundColor = "#050505";
-        this.nav_bar.style.boxShadow = "0px 5px 15px 0px rgba(7, 7, 7, 0.7)";
-      }
-      else if (window.scrollY > window.innerHeight - 70 && this.currentPage === "HomePage") {
         this.nav_bar.style.backgroundColor = "#050505";
         this.nav_bar.style.boxShadow = "0px 5px 15px 0px rgba(7, 7, 7, 0.7)";
       }

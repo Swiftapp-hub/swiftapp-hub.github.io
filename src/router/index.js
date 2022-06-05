@@ -10,7 +10,7 @@ const routes = [
   },
   {
     path: '/swifty-assistant',
-    component: SwiftyAssistant
+    component: SwiftyAssistant,
   },
   {
     path: '/contact',

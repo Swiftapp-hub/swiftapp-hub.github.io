@@ -81,7 +81,7 @@
       </Teleport>
 
       <Teleport to="body">
-        <DialogVue :show="showPlugins" @close="showPlugins = false">
+        <DialogVue :show="showPlugins" @close="closeDialog()">
           <template #header>
             <h2 class="text">Swifty Assistant plugins</h2>
           </template>
@@ -108,7 +108,7 @@
       </Teleport>
 
       <Teleport to="body">
-        <DialogScreenshots :show="showScreenshot" @close="showScreenshot = false">
+        <DialogScreenshots :show="showScreenshot" @close="closeDialog()">
           <template #header>
             <h2>Screenshot</h2>
           </template>
@@ -241,12 +241,49 @@ export default {
       anim,
     };
   },
+  created() {
+    var updated = false;
+
+    this.$watch(
+      () => this.$route.query,
+      (toParams) => {
+        if (toParams.d !== undefined) {
+          this.updateDialog(toParams);
+          updated = true;
+        }
+      }
+    );
+
+    if (!updated) {
+      this.updateDialog(this.$route.query);
+    }
+
+    document.title = "Swiftapp - Swifty Assistant";
+  },
   methods: {
     showDialogScreenshot() {
-      this.showScreenshot = true;
+      this.$router.replace({ path: "/swifty-assistant", query: { d: "1" } });
     },
     showDialogPlugins() {
-      this.showPlugins = true;
+      this.$router.replace({ path: "/swifty-assistant", query: { d: "2" } });
+    },
+    closeDialog() {
+      this.$router.replace({ path: "/swifty-assistant", query: { d: "0" } });
+    },
+    updateDialog(toParams) {
+      if (toParams.d === "1") {
+        this.showScreenshot = true;
+        this.showPlugins = false;
+      }
+      else if (toParams.d === "2") {
+        this.showPlugins = true;
+        this.showScreenshot = false;
+      }
+      else {
+        this.$router.replace({ path: "/swifty-assistant" });
+        this.showPlugins = false;
+        this.showScreenshot = false;
+      }
     },
     download(link) {
       location.href = link;

@@ -24,10 +24,7 @@
           autonomous and creative, I learned several programming languages such
           as C++, Java and more recently HTML, CSS and JavaScript.
         </h2>
-        <h2
-          class="text"
-          ref="h03"
-        >If you are interested, you can visit my LinkedIn profil below:</h2>
+        <h2 class="text" ref="h03">If you are interested, you can visit my LinkedIn profil below:</h2>
         <div>
           <button
             ref="btn_linkedin"
@@ -112,6 +109,9 @@ export default {
       content_page,
       anim,
     };
+  },
+  created() {
+    document.title = "Swiftapp - Contact";
   },
   methods: {
     open(link) {
