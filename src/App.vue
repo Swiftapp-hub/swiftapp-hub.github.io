@@ -25,9 +25,9 @@
       <div class="spacer2"></div>
 
       <div class="onglets">
-        <button ref="btn_github" @click="open('https://github.com/Swiftapp-hub')">
-          <div>GitHub</div>
-          <img src="../src/assets/github-brands.png" alt="GitHub profile" />
+        <button ref="btn_github" @click="open('https://www.linkedin.com/in/nantsa-montillet/')">
+          <div>LinkedIn</div>
+          <img src="../src/assets/linkedin.png" alt="LinkedIn profile" />
         </button>
       </div>
     </nav>

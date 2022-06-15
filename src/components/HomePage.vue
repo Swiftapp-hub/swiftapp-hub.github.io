@@ -2,7 +2,7 @@
   <div class="main">
     <div class="bg_home" ref="bg_home"></div>
 
-    <div class="home_sec">
+    <div class="home_sec" ref="home_sec">
       <div class="text_main">
         <h1 class="title" ref="n">Nantsa</h1>
         <h1 class="title" ref="m">Montillet</h1>
@@ -27,14 +27,11 @@
         >Visit my GitHub</button>
       </div>
       <div class="container_scroll">
-        <div class="chevron"></div>
-        <div class="chevron"></div>
-        <div class="chevron"></div>
         <span class="text">Scroll down</span>
       </div>
     </div>
-    <div class="projects_sec">
-      <ul class="circles">
+    <div class="sec projects_sec" ref="projects_sec">
+      <ul class="circles" ref="animated_bg">
         <li></li>
         <li></li>
         <li></li>
@@ -58,6 +55,18 @@
         <p class="language">Language: C++</p>
       </div>
     </div>
+    <div class="sec hardskills_sec" ref="hardskills_sec">
+      <div class="color_mask" ref="color_mask"></div>
+
+      <h1 class="title title_hardskills">My skills:</h1>
+
+      <div class="grid_hardskills">
+        <img src="../assets/html.svg" alt="html5 logo">
+        <img src="../assets/css.svg" alt="css3 logo">
+        <img src="../assets/javascript.svg" alt="javascript logo">
+        <img src="../assets/vuejs.png" alt="vue js logo">
+      </div>
+    </div>
     <div class="footer_sec">
       <p class="text">Copyright © 2022 Nantsa Montillet.</p>
       <p class="text">
@@ -78,6 +87,13 @@ import { onMounted, ref } from "@vue/runtime-core";
 export default {
   name: 'HomePage',
   setup() {
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const marge = isMobile ? 30 : 0;
+
+    const hardskillsScrollDown = (window.innerHeight * 2) - (window.innerHeight / 20) + marge;
+    const hardskillsScrollUp = window.innerHeight * 2 - (window.innerHeight / 2) + (marge * 3);
+    const projectsScroll = window.innerHeight / 1.5;
+
     const bg_home = ref("bg_home");
     const container = ref("container");
     const n = ref("n");
@@ -86,6 +102,7 @@ export default {
     const btn_view_github = ref("btn_view_github");
     const title_projects = ref("title_projects");
     const sw_assist = ref("sw_assist");
+    const color_mask = ref("color_mask");
 
     let anim = null;
 
@@ -103,16 +120,6 @@ export default {
           0.5
         )
         .from(
-          n.value,
-          { duration: 1, x: -100, opacity: 0, ease: "power2.out" },
-          0.2
-        )
-        .from(
-          m.value,
-          { duration: 1, x: 100, opacity: 0, ease: "power2.out" },
-          0.2
-        )
-        .from(
           text_main.value,
           { duration: 1, x: -100, opacity: 0, ease: "power2.out" },
           0.8
@@ -122,18 +129,39 @@ export default {
           { duration: 1, x: 100, opacity: 0, ease: "power2.out" },
           0.8
         )
+
+      if (isMobile) {
+        anim.from(
+          n.value,
+          { duration: 2, opacity: 0, ease: "power2.out" },
+          0.2
+        )
+          .from(
+            m.value,
+            { duration: 2, opacity: 0, ease: "power2.out" },
+            0.2
+          )
+      }
+      else {
+        anim.from(
+          n.value,
+          { duration: 1, x: -100, opacity: 0, ease: "power2.out" },
+          0.2
+        )
+          .from(
+            m.value,
+            { duration: 1, x: 100, opacity: 0, ease: "power2.out" },
+            0.2
+          )
+      }
     });
 
     return {
-      bg_home,
-      container,
-      anim,
-      n,
-      m,
-      text_main,
-      btn_view_github,
-      title_projects,
-      sw_assist,
+      bg_home, container,
+      anim, n, m, text_main,
+      btn_view_github, title_projects,
+      sw_assist, color_mask,
+      isMobile, marge, hardskillsScrollDown, hardskillsScrollUp, projectsScroll
     };
   },
   created() {
@@ -142,21 +170,30 @@ export default {
   // handle scroll
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.resized);
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.resized);
   },
   methods: {
     handleScroll() {
       this.bg_home.style.transform = `translateY(-${window.scrollY / 2}px)`;
 
-      if (window.scrollY > window.innerHeight / 1.5) {
+      if (window.scrollY > this.projectsScroll) {
         this.title_projects.classList.add("active");
         this.sw_assist.classList.add("active");
       }
       else {
         this.title_projects.classList.remove("active");
         this.sw_assist.classList.remove("active");
+      }
+
+      if (window.scrollY > this.hardskillsScrollDown) {
+        this.color_mask.style.opacity = 0;
+      }
+      else if (window.scrollY < this.hardskillsScrollUp) {
+        this.color_mask.style.opacity = 1;
       }
     },
     open(link) {
@@ -165,6 +202,11 @@ export default {
     changePage(page) {
       this.$router.push(page);
     },
+    resized() {
+      this.hardskillsScrollDown = (window.innerHeight * 2) - (window.innerHeight / 20) + this.marge;
+      this.hardskillsScrollUp = window.innerHeight * 2 - (window.innerHeight / 2) + (this.marge * 3);
+      this.projectsScroll = window.innerHeight / 1.5;
+    }
   },
 }
 </script>
@@ -183,7 +225,7 @@ export default {
   background-size: cover;
   background-position: center;
   width: 100%;
-  height: 100%;
+  height: 115%;
   z-index: -1;
 }
 
@@ -238,62 +280,6 @@ export default {
   height: 24px;
 }
 
-.chevron {
-  position: absolute;
-  width: 28px;
-  height: 8px;
-  opacity: 0;
-  transform: scale3d(0.5, 0.5, 0.5);
-  animation: move 3s ease-out infinite;
-}
-
-.chevron:first-child {
-  animation: move 3s ease-out 1s infinite;
-}
-
-.chevron:nth-child(2) {
-  animation: move 3s ease-out 2s infinite;
-}
-
-.chevron:before,
-.chevron:after {
-  content: " ";
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 51%;
-  background: rgba(17, 17, 17, 0.555);
-}
-
-.chevron:before {
-  left: 0;
-  transform: skew(0deg, 30deg);
-}
-
-.chevron:after {
-  right: 0;
-  width: 50%;
-  transform: skew(0deg, -30deg);
-}
-
-@keyframes move {
-  25% {
-    opacity: 1;
-  }
-  33% {
-    opacity: 1;
-    transform: translateY(30px);
-  }
-  67% {
-    opacity: 1;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(55px) scale3d(0.5, 0.5, 0.5);
-  }
-}
-
 .container_scroll .text {
   display: block;
   margin-top: 75px;
@@ -313,18 +299,20 @@ export default {
   }
 }
 
-.projects_sec {
-  z-index: 3;
+.sec {
   width: 100%;
   height: 100%;
-  background: #4e54c8;
-  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
-  box-shadow: 0px 5px 20px rgba(7, 7, 7, 0.7);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.projects_sec {
+  z-index: 3;
+  background: #4e54c8;
+  box-shadow: 0px 5px 20px rgba(7, 7, 7, 0.7);
 }
 
 .circles {
@@ -443,7 +431,7 @@ export default {
   margin-right: 100px;
   opacity: 0;
   transform: translateY(200px);
-  transition: all 0.8s ease;
+  transition: all 0.5s ease;
 }
 
 .projects_sec .title_projects.active {
@@ -462,7 +450,7 @@ export default {
   width: 250px;
   border-radius: 20px;
   background: rgb(5, 5, 5);
-  transition: all 0.5s ease;
+  transition: all 0.8s ease;
   box-shadow: 0px 0px 15px 4px rgba(7, 7, 7, 0.534);
   cursor: pointer;
   opacity: 0;
@@ -513,6 +501,40 @@ export default {
   height: 100px;
 }
 
+.hardskills_sec {
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  background: #313131;
+  background-image: url("../assets/hardskills_bg.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.color_mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(5, 5, 5);
+  transition: all 1.5s ease;
+}
+
+.hardskills_sec .grid_hardskills {
+  display: grid;
+  margin-top: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+}
+
+.hardskills_sec .grid_hardskills img {
+  width: 20vh;
+  height: 20vh;
+  background-color: rgba(255, 255, 255, 0.781);
+  padding: 15px;
+  border-radius: 15px;
+}
+
 .footer_sec {
   z-index: 2;
   right: 0;
@@ -534,6 +556,15 @@ export default {
   padding: 0;
   font-size: 1em;
   margin: 0;
+}
+
+@media only screen and (pointer: coarse) {
+  .home_sec,
+  .color_mask,
+  .sec,
+  .circles {
+    height: 115%;
+  }
 }
 
 @media all and (orientation: portrait) {
@@ -625,14 +656,33 @@ export default {
 }
 
 @media all and (max-width: 900px) {
+  .home_sec .text_main h1 {
+    font-size: 35px;
+  }
+
   .projects_sec .title_projects {
     font-size: 2.8em;
+  }
+  
+  .hardskills_sec .grid_hardskills {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hardskills_sec .grid_hardskills img {
+    width: 15vh;
+    height: 15vh;
   }
 }
 
 @media all and (max-width: 700px) {
   .footer_sec p {
     font-size: 0.8em;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .hardskills_sec .grid_hardskills {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
