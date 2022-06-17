@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav ref="nav_bar">
-      <a ref="logo" href="/" title="Home">
+      <a class="logo" ref="logo" href="/" title="Home">
         <span translate="no">Swiftapp</span>
       </a>
 
@@ -14,7 +14,9 @@
         </router-link>
         <router-link class="tab_item" ref="btn_swifty" to="/swifty-assistant">
           <img src="../src/assets/smile.png" alt="Swifty" />
-          <div><span translate="no">Swifty</span></div>
+          <div>
+            <span translate="no">Swifty</span>
+          </div>
         </router-link>
         <router-link class="tab_item" ref="btn_contact" to="/contact">
           <img src="../src/assets/contact.png" alt="Contact" />
@@ -38,6 +40,14 @@
       <component :is="Component" />
     </transition>
   </router-view>
+
+  <img
+    class="scroll_to_top"
+    ref="up"
+    src="./assets/scroll_to_top.png"
+    alt="Scroll to top"
+    @click="scroll_to_top()"
+  />
 </template>
 
 <script>
@@ -50,6 +60,8 @@ export default {
     const logo = ref("logo");
     const btn_github = ref("btn_github");
     const nav_bar = ref("nav_bar");
+
+    const up = ref("up");
 
     let anim = null;
 
@@ -68,6 +80,7 @@ export default {
       btn_github,
       anim,
       nav_bar,
+      up,
     };
   },
   methods: {
@@ -75,14 +88,19 @@ export default {
       if (window.scrollY > 35 && this.currentPage !== "HomePage") {
         this.nav_bar.style.backgroundColor = "#050505";
         this.nav_bar.style.boxShadow = "0px 5px 15px 0px rgba(7, 7, 7, 0.7)";
+        this.up.style.display = "block";
       }
       else {
         this.nav_bar.style.backgroundColor = "rgba(10, 10, 10, 0.700)";
         this.nav_bar.style.boxShadow = "0px 0px 0px 0px rgba(7, 7, 7, 0.534)";
+        this.up.style.display = "none";
       }
     },
     open(link) {
       location.href = link;
+    },
+    scroll_to_top() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
   mounted() {
@@ -102,6 +120,23 @@ export default {
 .component-fade-enter,
 .component-fade-leave-to {
   opacity: 0;
+}
+
+.scroll_to_top {
+  height: 5vh;
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  display: none;
+  z-index: 1;
+  box-shadow: 0px 0px 30px 8px rgba(7, 7, 7, 0.534);
+  background-color: white;
+  border-radius: 100%;
+  border-color: black;
+  border-style: solid;
+  border-width: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 nav .tabs .tab_item {
@@ -158,6 +193,7 @@ nav .tabs a.router-link-exact-active {
 }
 
 nav .tabs a {
+  text-decoration: none;
   font-size: 1.2em;
   font-family: "Baloo 2", cursive;
   color: rgb(255, 255, 255);
@@ -171,6 +207,7 @@ nav {
   right: 0;
   padding: 12px;
   justify-content: space-between;
+  align-items: center;
   transition: all 0.25s;
   position: fixed;
   z-index: 1;
@@ -178,12 +215,13 @@ nav {
   -webkit-backdrop-filter: blur(6px);
 }
 
-nav a {
+.logo {
   font-family: "Raleway", sans-serif;
   text-decoration: none;
   color: white;
   font-size: 1.8em;
   margin-left: 20px;
+  margin-top: 0;
   height: 100%;
   color: #8979e6;
 }
@@ -217,6 +255,10 @@ nav .onglets button:active {
 }
 
 @media all and (max-width: 851px) {
+  nav {
+    padding-left: 0;
+  }
+
   nav .onglets button {
     border: 3;
     border-radius: 25px;
@@ -227,6 +269,10 @@ nav .onglets button:active {
     font-size: 0.9em;
     transition: all 0.4s;
     transition-property: background;
+  }
+
+  nav .onglets {
+    height: fit-content;
   }
 
   nav a {

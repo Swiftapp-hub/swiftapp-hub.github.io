@@ -32,7 +32,7 @@
             @click="
             showDialogScreenshot()
           "
-          >Screenshot</button>
+          >Screenshots</button>
         </div>
 
         <div class="line" ref="line"></div>
@@ -42,9 +42,7 @@
             ref="btn_download"
             class="btn btn_swifty btn_download"
             @click="
-            download(
-              'https://github.com/Swiftapp-hub/Swifty-Assistant/releases/download/v1.0.0-alpha3/SwiftyAssistant-OnLine-Installer.run'
-            )
+            download()
           "
           >Download v1.0.0-alpha3 Linux</button>
           <button
@@ -67,7 +65,7 @@
       <div class="margin"></div>
 
       <Teleport to="body">
-        <DialogVue :show="showDialog" @close="showDialog = false">
+        <DialogVue :show="showDialog" @close="closeDialog()">
           <template #header>
             <h2 class="text">Swifty Assistant is downloading</h2>
           </template>
@@ -247,7 +245,7 @@ export default {
     this.$watch(
       () => this.$route.query,
       (toParams) => {
-        if (toParams.d !== undefined) {
+        if (toParams.d !== undefined || toParams.download !== undefined) {
           this.updateDialog(toParams);
           updated = true;
         }
@@ -267,8 +265,11 @@ export default {
     showDialogPlugins() {
       this.$router.replace({ path: "/swifty-assistant", query: { d: "2" } });
     },
+    showDialogDownload() {
+      this.$router.replace({ path: "/swifty-assistant", query: { download: "1" } });
+    },
     closeDialog() {
-      this.$router.replace({ path: "/swifty-assistant", query: { d: "0" } });
+      this.$router.replace({ path: "/swifty-assistant", query: { d: "0", download: "0" } });
     },
     updateDialog(toParams) {
       if (toParams.d === "1") {
@@ -279,15 +280,22 @@ export default {
         this.showPlugins = true;
         this.showScreenshot = false;
       }
-      else {
-        this.$router.replace({ path: "/swifty-assistant" });
+      else if (toParams.download === "1") {
+        location.href = "https://github.com/Swiftapp-hub/Swifty-Assistant/releases/download/v1.0.0-alpha3/SwiftyAssistant-OnLine-Installer.run"
+
+        this.showDialog = true;
         this.showPlugins = false;
         this.showScreenshot = false;
       }
+      else {
+        this.$router.replace({ path: "/swifty-assistant" });
+        this.showPlugins = false;
+        this.showDialog = false;
+        this.showScreenshot = false;
+      }
     },
-    download(link) {
-      location.href = link;
-      this.showDialog = true;
+    download() {
+      this.showDialogDownload();
     },
     open(link) {
       window.open(link);

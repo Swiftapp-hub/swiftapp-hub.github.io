@@ -30,7 +30,7 @@
         <span class="text">Scroll down</span>
       </div>
     </div>
-    <div class="sec projects_sec" ref="projects_sec">
+    <div id="projects" class="sec projects_sec">
       <ul class="circles" ref="animated_bg">
         <li></li>
         <li></li>
@@ -55,27 +55,63 @@
         <p class="language">Language: C++</p>
       </div>
     </div>
-    <div class="sec hardskills_sec" ref="hardskills_sec">
+    <div id="hardskills" class="sec hardskills_sec">
       <div class="color_mask" ref="color_mask"></div>
 
       <h1 class="title title_hardskills">My skills:</h1>
 
       <div class="grid_hardskills">
-        <img src="../assets/html.svg" alt="html5 logo">
-        <img src="../assets/css.svg" alt="css3 logo">
-        <img src="../assets/javascript.svg" alt="javascript logo">
-        <img src="../assets/vuejs.png" alt="vue js logo">
+        <img src="../assets/html.svg" alt="html5 logo" />
+        <img src="../assets/css.svg" alt="css3 logo" />
+        <img src="../assets/javascript.svg" alt="javascript logo" />
+        <img src="../assets/vuejs.png" alt="vue js logo" />
       </div>
     </div>
     <div class="footer_sec">
-      <p class="text">Copyright © 2022 Nantsa Montillet.</p>
-      <p class="text">
-        This site is open source,
-        <a
-          class="link"
-          href="https://github.com/Swiftapp-hub/swiftapp-hub.github.io"
-        >contribute to the improvement of the site</a>
-      </p>
+      <div class="cpy_div">
+        <a class="logo" ref="logo" href="/" title="Home">
+          <span translate="no">Swiftapp</span>
+        </a>
+        <div></div>
+        <p class="text">Copyright © 2022 Nantsa Montillet.</p>
+      </div>
+
+      <div class="container_footer_list">
+        <div class="cpy_div list_div">
+          <a class="main_link" href="#">Home</a>
+          <a class="link" href="#projects">Projects</a>
+          <a class="link" href="#hardskills">Skills</a>
+        </div>
+
+        <div class="cpy_div list_div">
+          <a class="main_link" href="/#/swifty-assistant">Swifty</a>
+          <a class="link" href="/#/swifty-assistant?d=1">Screenshots</a>
+          <a class="link" href="/#/swifty-assistant?download=1">Download</a>
+          <a class="link" href="/#/swifty-assistant?d=2">Plugins</a>
+        </div>
+
+        <div class="cpy_div list_div">
+          <a class="main_link" href="/#/contact">Contact</a>
+          <a class="link" href="https://github.com/Swiftapp-hub">GitHub</a>
+          <a class="link" href="https://www.linkedin.com/in/nantsa-montillet/">LinkedIn</a>
+          <a class="link" href="mailto:swiftyassistant.io@gmail.com">Mail</a>
+          <a
+            class="link"
+            href="https://www.codingame.com/profile/6a09b7f196bb6fae61ca49b75d3a8e5b6810864"
+          >CodingGame</a>
+        </div>
+      </div>
+
+      <div class="cpy_div">
+        <div></div>
+        <p class="text">
+          This site is open source,
+          <a
+            class="link"
+            href="https://github.com/Swiftapp-hub/swiftapp-hub.github.io"
+          >contribute</a>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -206,7 +242,7 @@ export default {
       this.hardskillsScrollDown = (window.innerHeight * 2) - (window.innerHeight / 20) + this.marge;
       this.hardskillsScrollUp = window.innerHeight * 2 - (window.innerHeight / 2) + (this.marge * 3);
       this.projectsScroll = window.innerHeight / 1.5;
-    }
+    },
   },
 }
 </script>
@@ -247,7 +283,7 @@ export default {
 }
 
 .text_main h1 {
-  font-size: 4em;
+  font-size: 5vw;
   color: black;
   padding: 8px;
 }
@@ -425,7 +461,7 @@ export default {
 }
 
 .projects_sec .title_projects {
-  z-index: 20;
+  z-index: 0;
   font-size: 4em;
   padding: 8px;
   margin-right: 100px;
@@ -440,7 +476,7 @@ export default {
 }
 
 .projects_sec .sw_assist {
-  z-index: 20;
+  z-index: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -449,7 +485,7 @@ export default {
   padding: 30px;
   width: 250px;
   border-radius: 20px;
-  background: rgb(5, 5, 5);
+  background: rgba(5, 5, 5, 0.658);
   transition: all 0.8s ease;
   box-shadow: 0px 0px 15px 4px rgba(7, 7, 7, 0.534);
   cursor: pointer;
@@ -463,8 +499,8 @@ export default {
 }
 
 .projects_sec .sw_assist:hover {
-  background: #8979e6be;
-  box-shadow: 0px 0px 30px 15px rgba(7, 7, 7, 1);
+  background: #8979e68f;
+  box-shadow: 0px 0px 35px 18px rgba(7, 7, 7, 0.534);
 }
 
 .projects_sec .sw_assist:active {
@@ -520,9 +556,16 @@ export default {
   transition: all 1.5s ease;
 }
 
+.hardskills_sec .title_hardskills {
+  z-index: 0;
+  font-size: 8vw;
+  padding: 0;
+  margin: 0;
+}
+
 .hardskills_sec .grid_hardskills {
   display: grid;
-  margin-top: 30px;
+  margin-top: 8vh;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 1rem;
 }
@@ -536,26 +579,62 @@ export default {
 }
 
 .footer_sec {
-  z-index: 2;
+  z-index: 0;
   right: 0;
   left: 0;
-  height: 7%;
+  height: 170px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background: rgb(49, 49, 49);
-  align-items: center;
-  text-align: center;
-  padding: 0;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding: 20px;
   margin: 0;
+}
+
+.footer_sec .cpy_div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.footer_sec .cpy_div div {
+  height: inherit;
 }
 
 .footer_sec p {
   padding: 0;
   font-size: 1em;
   margin: 0;
+}
+
+.footer_sec .container_footer_list {
+  display: flex;
+  flex-direction: row;
+}
+
+.footer_sec .list_div {
+  padding: 5px;
+  margin-left: 4vw;
+  margin-right: 4vw;
+}
+
+.footer_sec .list_div .main_link {
+  padding: 6px;
+  padding-left: 15px;
+  margin-bottom: 5px;
+  width: 100px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: black;
+  background: rgb(255, 255, 255);
+  font-family: "Raleway", sans-serif;
+}
+
+.footer_sec .list_div .link {
+  font-size: 1.1em;
+  margin-left: 20px;
+  color: rgb(209, 209, 209);
+  font-family: "Baloo 2", cursive;
 }
 
 @media only screen and (pointer: coarse) {
@@ -573,6 +652,10 @@ export default {
   .chevron {
     display: none;
     opacity: 0;
+  }
+
+  .text_main h1 {
+    font-size: 5vh;
   }
 
   .home_sec .content_main {
@@ -595,23 +678,36 @@ export default {
     width: 70%;
   }
 
-  .text_main h1 {
-    font-size: 3em;
-  }
-
   .btn_view_github {
     margin-bottom: 0;
   }
 }
 
-@media all and (max-height: 900px) and (orientation: landscape) {
-  .home_sec {
-    justify-content: flex-start;
+@media all and (max-width: 860px) {
+  .footer_sec {
+    flex-direction: column;
+    height: auto;
   }
 
+  .footer_sec .container_footer_list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer_sec .list_div {
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
+
+  .footer_sec .logo {
+    margin: 0;
+  }
+}
+
+@media all and (max-height: 900px) and (orientation: landscape) {
   .text_main {
     margin-bottom: 0;
-    margin-top: 40px;
   }
 }
 
@@ -621,13 +717,33 @@ export default {
     margin-top: 30px;
   }
 
-  .text_main h1 {
-    font-size: 3em;
-  }
-
   .home_sec .content_main {
     width: 70%;
     padding: 25px;
+  }
+}
+
+@media all and (max-height: 600px) and (orientation: landscape) {
+  .home_sec .content_main {
+    width: 80%;
+    padding: 10px;
+    box-shadow: unset;
+  }
+
+  .home_sec .text_main h1 {
+    font-size: 3vw;
+  }
+
+  .home_sec p {
+    font-size: 4vh;
+  }
+
+  .projects_sec .sw_assist {
+    height: 60vh;
+  }
+
+  .projects_sec .sw_assist img {
+    height: 15vh;
   }
 }
 
@@ -646,24 +762,19 @@ export default {
 
 @media all and (max-height: 520px) and (orientation: portrait) {
   .text_main h1 {
-    font-size: 2.5em;
-    padding: 5px;
+    padding: 3px;
   }
 
   .home_sec .content_main p {
-    font-size: 15px;
+    font-size: 3vh;
   }
 }
 
 @media all and (max-width: 900px) {
-  .home_sec .text_main h1 {
-    font-size: 35px;
-  }
-
   .projects_sec .title_projects {
     font-size: 2.8em;
   }
-  
+
   .hardskills_sec .grid_hardskills {
     grid-template-columns: repeat(2, 1fr);
   }
